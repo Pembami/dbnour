@@ -1,4 +1,5 @@
 import pandas as pd
+import streamlit as st
 
 def dataprocessing(df):
     """
@@ -18,4 +19,18 @@ def dataprocessing(df):
     # convert observations column to string
     df.Observations = df.Observations.astype(str)
     
+     # convert année column to int
+    df['Année'] =  df['Année'].astype(int)
+    
     return df
+
+def get_metrics(df, column,func, year):
+    df_filter = df[df['année']==year]
+    last_year = year -1
+    
+    if last_year in df['Année']:
+        st.metric(column,round(df[df['Année']==year][column].func(),1))
+    else:
+        st.metric(column,round(df[df['Année']==year][column].func(),1))
+    
+    
